@@ -2,12 +2,14 @@ var todaysDate = moment().format("MMM, DD, YYYY");
 var startTime = moment().set("hour", 6).format("h:mm a")
 var textArray = []
 
+
+// add today's date to top of page
 setDate = function() {
     $("#currentDay").text(todaysDate);
 };
 
 
-// compare current time to the numbers
+// add color classes according to time of day
 pasCurFut = function() {
     var currentTime = moment().hour()
    for (var i = 0; i < 12; i++) {
@@ -22,10 +24,8 @@ pasCurFut = function() {
    } 
 };
 
-var addStuff = function(){
-    $(".jumbotron").addClass("past")
-};
 
+// generate rows
 var createRows = function() {
     for(var i = 0; i < 12; i++) {
         var timeSet = moment(startTime, "h a").add(i, "hour").format("h a");
@@ -43,6 +43,7 @@ var createRows = function() {
     };
 };
 
+// save textareas to local storage
 $("#container").on("click", "button", function() {
     var textContent = [
         $("#textarea0").val(),
@@ -61,6 +62,7 @@ $("#container").on("click", "button", function() {
     localStorage.setItem("tasks", JSON.stringify(textContent))
 });
 
+// load textArray from local storage and place value into each textarea
 var loadText = function() {
     var text = JSON.parse(localStorage.getItem("tasks"));
     if(text) {
@@ -68,6 +70,7 @@ var loadText = function() {
     }
 };
 
+// start the show
 var startScheduler = function () {
     loadText();
     setDate();
